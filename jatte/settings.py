@@ -33,10 +33,24 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/chat-admin/'
 LOGOUT_REDIRECT_URL = '/'
 
+
+
+# CHANNEL_LAYER = {
+#   'default':{
+#     "BACKEND":"channels.layers.InMemoryChannelLayer",
+#   }
+# }
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",   
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
     'daphne',
+  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'core',
+    'chat',
+    
 ]
 
 MIDDLEWARE = [
@@ -81,6 +97,9 @@ ASGI_APPLICATION = 'jatte.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+
+
 
 DATABASES = {
     'default': {

@@ -22,6 +22,19 @@ const chatSubmitElement = document.querySelector("#chat_message_submit");
 // event listers
 // document.body.innerHTML = "Hi hello";
 
+
+
+//func to  scroll to the bootm of chat
+
+function scrollToBottom(){
+  chatLogElement.scrollTop = chatLogElement.scrollHeight
+}
+
+
+
+
+
+// function to get cookies
 function getCookie(name) {
   var cookieValue = null;
 
@@ -65,25 +78,25 @@ function onChatMessage(data) {
   console.log("onchatMessage", data);
 
   if (data.type == "chat_message") {
-    if (data.agemt) {
-      `<div class="flex w-full mt-2  max-w-md"> 
+    if (data.agent) {
+      console.log(data.agent);
+      chatLogElement.innerHTML += `<div class=" w-full mt-2  max-w-md">
+      <div  class="flex">
       <div class ="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300 text-center pt-2">${data.initials}
           </div> 
-      <div>
-        
-
-         
-
+    
+    
           <div class="bg-gray-300 p-3 rounded-l-lg rounded-br-lg">
             <p class = "text-sm">${data.message}</p>
           </div>
+      </div>
          
-          </div>
-          
-          <div class= "flex-col  justify-end" >
           
           
-          <span class = "w-full text-end  text-xs text-gray-500 ">${data.created_at} ago</span>
+          <div class= "flex " >
+          
+          
+          <span class = "w-full   text-xs text-gray-500 ">${data.created_at} ago</span>
           
           </div>
           
@@ -101,7 +114,7 @@ function onChatMessage(data) {
           <div class ="h-10 w-10 rounded-full bg-gray-300 text-center pt-2">${data.initials}
           </div> 
         </div>
-        <div class="flex justify-end w-fit ">
+        <div class="flex justify-end ">
           <span class = "text-center  text-xs text-gray-500 ">${data.created_at} ago</span>
         </div>
           
@@ -109,6 +122,8 @@ function onChatMessage(data) {
       </div>`;
     }
   }
+
+  scrollToBottom()
 }
 
 async function joinChatRoom() {
@@ -144,7 +159,9 @@ async function joinChatRoom() {
   };
 
   chatSocket.onopen = function (e) {
-    console.log("on open");
+    console.log("on open"); 
+    scrollToBottom()
+
   };
 
   chatSocket.onclose = function (e) {
@@ -169,6 +186,13 @@ chatJoinElement.onclick = function (e) {
   chatRoomElement.classList.remove("hidden");
   joinChatRoom();
   // return flase;
+};
+
+chatInputElement.onkeyup = function (e) {
+  console.log(e);
+  if (e.keyCode == 13) {
+    sendMessage();
+  }
 };
 
 chatSubmitElement.onclick = function (e) {
